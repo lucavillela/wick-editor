@@ -75,7 +75,7 @@ class Editor extends EditorCore {
     this.state = {
       project: null,
       previewPlaying: false,
-      activeModalName: window.localStorage.skipWelcomeMessage ? null : "WelcomeMessage",
+      //activeModalName: window.localStorage.skipWelcomeMessage ? null : "WelcomeMessage",
       activeModalQueue: [],
       codeEditorOpen: false,
       scriptToEdit: "default",
@@ -202,7 +202,7 @@ class Editor extends EditorCore {
   }
 
   UNSAFE_componentWillMount = () => {
-    document.title =  `Wick Editor ${this.editorVersion}`;
+    document.title =  'Wick Editor In9';
     // Initialize "live" engine state
     this.project = new window.Wick.Project();
     this.attachErrorHandlers();
