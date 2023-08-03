@@ -86,7 +86,7 @@ class Outliner extends Component {
   }
 
   //returns the object at indices[0:length] relative to ancestor
-  //null if invalid indices
+ //null if invalid indices
   getObjectAtIndices = (ancestor, indices, length) => {
     let object = ancestor;
     for (let j = 0; j < length; j++) {
@@ -158,7 +158,7 @@ class Outliner extends Component {
             indices2 = temp;
         }
         //traverse the timeline's items at depth=getDepth(object) from indices1 to indices2
-        //and select each item
+       //and select each item
         let keep_going = true;
         let to_select = [];
         while (keep_going) {

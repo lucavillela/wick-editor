@@ -23,6 +23,7 @@ import MenuBarButton from './MenuBarButton/MenuBarButton';
 import MenuBarIconButton from './MenuBarIconButton/MenuBarIconButton';
 
 class MenuBar extends Component {
+  
 
   renderDesktop = () => {
     return(
@@ -42,7 +43,7 @@ class MenuBar extends Component {
 
         <div className="menu-bar-actions-container">
 
-          <MenuBarButton
+          {/* <MenuBarButton
             text="new"
             action={this.props.openNewProjectConfirmation}
           />
@@ -50,11 +51,11 @@ class MenuBar extends Component {
           <MenuBarButton
             text="open"
             action={this.props.openProjectFileDialog}
-          />
+          /> */}
 
           <MenuBarButton
             text="export"
-            action={() => {this.props.exporting ? this.props.openExportMedia() : this.props.openExportOptions()}}
+            action={() => this.props.exportProjectAsStandaloneHTML({})}
           />
 
           <MenuBarButton

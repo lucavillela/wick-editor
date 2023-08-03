@@ -23,6 +23,7 @@ import VideoExport from './export/VideoExport';
 import GIFExport from './export/GIFExport';
 import GIFImport from './import/GIFImport';
 import AudioExport from './export/AudioExport';
+import axios from 'axios';
 
 class EditorCore extends Component {
 
@@ -979,11 +980,11 @@ class EditorCore extends Component {
   }
 
   /**
-   * Export the current project as a Wick File using the save as dialog.
+   * Export the current project as a Wick File using the save as dialog. agora
    */
   exportProjectAsWickFile = () => {
     this.showWaitOverlay();
-
+  
     let toastID = this.toast('Exporting project as a .wick file...', 'info', {autoClose: false});
     
     window.Wick.WickFile.toWickFile(this.project, file => {
@@ -994,23 +995,26 @@ class EditorCore extends Component {
         this.hideWaitOverlay();
         return;
       }
-
-      let success = () => {
-        this.updateToast(toastID, {
-          type: 'success',
-          text: "Successfully saved .wick file." });
-      }
-
-      let fail = () => {
-        this.updateToast(toastID, {
-          type: 'error',
-          text: "Error saving .wick file. Please try again." });
-      }
-
-      file = new Blob([file], {type: 'application/wick'});
-      window.saveFileFromWick(file, this.project.name, '.wick', success, fail);
-
-      this.hideWaitOverlay();
+  
+      let formData = new FormData();
+      formData.append('file', new Blob([file], { type: 'application/wick' }), this.project.name + '.wick');
+  
+      axios.post('https://enau2xpwg6dhe.x.pipedream.net/', formData) 
+        .then(response => {
+          this.updateToast(toastID, {
+            type: 'success',
+            text: 'Salvo com sucesso!'
+          });
+        })
+        .catch(error => {
+          this.updateToast(toastID, {
+            type: 'error',
+            text: 'Erro ao salvar, tente novamente.'
+          });
+        })
+        .finally(() => {
+          this.hideWaitOverlay();
+        });
     });
   }
 
@@ -1263,7 +1267,7 @@ class EditorCore extends Component {
   }
 
   /**
-   * Export the current project as a bundled standalone HTML file.
+   * Export the current project as a bundled standalone HTML file. aqui
    */
   exportProjectAsStandaloneHTML = (args) => {
     let toastID = this.toast('Exporting project as HTML...', 'info');
